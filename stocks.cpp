@@ -97,10 +97,6 @@ void printStock(const stock& s){
     display(s.stockInfo.back());
 }
 
-bool theAlgorithm(const stock& stock){
-	return true;
-}
-
 int stockAmt(){
     int amt;
     cout << "How many stocks do you want to track?: ";
@@ -143,6 +139,16 @@ double getPercentChange(const stock& stock){
     return percentChange;
 }
 
+bool theAlgorithm(const stock& stock){
+    double lastClosePrice = latestClose(stock);
+    double prevClosePrice = prevClose(stock);
+    double percentChange = getPercentChange(stock);
+    if (percentChange < -5){
+	return true;
+    }
+    return false;
+}
+
 int main(){
     vector<string> names = {"NVDA", "AAPL", "MU", "MSFT", "IREN", "INTC"};
     vector<stock> stocks;
@@ -155,6 +161,11 @@ int main(){
 	cout << latestClose(stock) << endl;
 	cout << prevClose(stock) << endl;
 	cout << getPercentChange(stock) << endl;
+	if (theAlgorithm(stock)){
+	    cout << "************" << endl;
+	    cout << "ALERT - " << stock.ticker << endl;
+	    cout << "************" << endl;
+	}
     }
     return 0;
 }
