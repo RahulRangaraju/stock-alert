@@ -2,6 +2,7 @@
 #include <vector>
 #include <fstream>
 #include <sstream>
+#include <cmath>
 
 using namespace std;
 
@@ -151,6 +152,23 @@ double avgClose(const stock& stock, int days){
     return avg;
 }
 
+double stdDevClose(const stock& stock,  int days){
+    if (days < 1 || days > static_cast<int>(stock.stockInfo.size())){
+	return -1;
+    }
+    double total = 0;
+    double average = avgClose(stock, days);
+    double stdDev;
+    for (int i = 0; i < days; i++){
+	double lastClose = stock.stockInfo.at(stock.stockInfo.size() - 1 - i).closePrice;	
+	double distance = lastClose - average;
+	total += pow(distance,2);
+    }
+    stdDev = total / days;
+    stdDev = sqrt(stdDev);
+    return stdDev;
+}
+
 bool theAlgorithm(const stock& stock){
     double percentChange = getPercentChange(stock);
     if (percentChange < -5){
@@ -172,6 +190,7 @@ int main(){
 	cout << prevClose(stock) << endl;
 	cout << getPercentChange(stock) << endl;
 	cout << avgClose(stock, 2) << endl;
+	cout << stdDevClose(stock, 2) << endl;
 	if (theAlgorithm(stock)){
 	    cout << "************" << endl;
 	    cout << "ALERT - " << stock.ticker << endl;
