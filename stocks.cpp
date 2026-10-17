@@ -169,9 +169,22 @@ double stdDevClose(const stock& stock,  int days){
     return stdDev;
 }
 
+double getZScore(const stock& stock){
+    int days = 20;
+    double zscore;
+    double averageClose = avgClose(stock, days);
+    double lastClose = latestClose(stock);
+    double stdDev = stdDevClose(stock, days);
+    if (averageClose == -1 || stdDev == -1 || stdDev == 0){
+	return -1000;
+    }
+    zscore = (lastClose - averageClose) / stdDev;
+    return zscore;
+}
+
 bool theAlgorithm(const stock& stock){
-    double percentChange = getPercentChange(stock);
-    if (percentChange < -5){
+    double zscore = getZScore(stock);
+    if (zscore <= -2){
 	return true;
     }
     return false;
@@ -187,10 +200,8 @@ int main(){
 	cout << stock.ticker << endl;
 	cout << stock.stockInfo.size() << endl;
 	cout << latestClose(stock) << endl;
-	cout << prevClose(stock) << endl;
-	cout << getPercentChange(stock) << endl;
-	cout << avgClose(stock, 2) << endl;
-	cout << stdDevClose(stock, 2) << endl;
+	cout << getZScore(stock) << endl;
+	cout << "------------" << endl;
 	if (theAlgorithm(stock)){
 	    cout << "************" << endl;
 	    cout << "ALERT - " << stock.ticker << endl;
