@@ -197,10 +197,12 @@ int main(){
 	stocks.push_back(loadStock(name));
     }
     for (const stock& stock : stocks){
-	cout << stock.ticker << endl;
-	cout << stock.stockInfo.size() << endl;
-	cout << latestClose(stock) << endl;
-	cout << getZScore(stock) << endl;
+	cout << "Ticker: " << stock.ticker << endl;
+	cout << "Days Worth Of Info: " << stock.stockInfo.size() << endl;
+	cout << "Latest Closing Price: " << latestClose(stock) << endl;
+	cout << "Average Closing Price Over 200 days: " <<
+avgClose(stock, 200) << endl;
+	cout << "zscore Over 200 days: " << getZScore(stock) << endl;
 	cout << "------------" << endl;
 	if (theAlgorithm(stock)){
 	    cout << "************" << endl;
