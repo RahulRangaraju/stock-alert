@@ -31,28 +31,34 @@ double getPercentChange(const stock& stock){
     return percentChange;
 }
 
-double avgClose(const stock& stock, int days){
+double avgClose(const stock& stock, int days, int endIndex){
     if (days < 1 || days > static_cast<int>(stock.stockInfo.size())){
+	return -1;
+    }
+    if (endIndex < 1 || endIndex >= static_cast<int>(stock.stockInfo.size()) || days > endIndex + 1){
 	return -1;
     }
     double total = 0;
     double avg;
     for (int i = 0; i < days; i++){
-	total += stock.stockInfo.at(stock.stockInfo.size() - 1 - i).closePrice;	
+	total += stock.stockInfo.at(endIndex - i).closePrice;	
     }
     avg = total / days;
     return avg;
 }
 
-double stdDevClose(const stock& stock,  int days){
+double stdDevClose(const stock& stock,  int days, int endIndex){
     if (days < 1 || days > static_cast<int>(stock.stockInfo.size())){
 	return -1;
     }
+    if (endIndex < 1 || endIndex >= static_cast<int>(stock.stockInfo.size()) || days > endIndex + 1){
+	return -1;
+    }
     double total = 0;
-    double average = avgClose(stock, days);
+    double average = avgClose(stock, days, endIndex);
     double stdDev;
     for (int i = 0; i < days; i++){
-	double lastClose = stock.stockInfo.at(stock.stockInfo.size() - 1 - i).closePrice;	
+	double lastClose = stock.stockInfo.at(endIndex - i).closePrice;	
 	double distance = lastClose - average;
 	total += pow(distance,2);
     }
@@ -61,21 +67,20 @@ double stdDevClose(const stock& stock,  int days){
     return stdDev;
 }
 
-double getZScore(const stock& stock){
+double getZScore(const stock& stock, int endIndex){
     int days = 200;
     double zscore;
-    double averageClose = avgClose(stock, days);
-    double lastClose = latestClose(stock);
-    double stdDev = stdDevClose(stock, days);
+    double averageClose = avgClose(stock, days, endIndex);
+    double stdDev = stdDevClose(stock, days, endIndex);
     if (averageClose == -1 || stdDev == -1 || stdDev == 0){
 	return -1000;
     }
-    zscore = (lastClose - averageClose) / stdDev;
+    zscore = (stock.stockInfo.at(endIndex).closePrice - averageClose) / stdDev;
     return zscore;
 }
 
-bool theAlgorithm(const stock& stock){
-    double zscore = getZScore(stock);
+bool theAlgorithm(const stock& stock, int endIndex){
+    double zscore = getZScore(stock, endIndex);
     if (zscore == -1000){
 	return false;
     }
