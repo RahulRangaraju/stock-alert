@@ -25,11 +25,12 @@ int main(){
     for ( const string& name : names ){
 	stocks.push_back(loadStock(name));
     }
-    int numDays = 200;
+    int numDays = 99;
     for (const stock& stock : stocks){
-	int endIndex = static_cast<int>(stock.stockInfo.size()) - 1;
+	int endIndex = 100;
 	cout << "Ticker: " << stock.ticker << endl;
 	cout << "Days Worth Of Info: " << stock.stockInfo.size() << endl;
+	cout << stock.stockInfo.at(endIndex - numDays + 1).date.substr(0,10) << " to " << stock.stockInfo.at(endIndex).date.substr(0,10) << endl;
 	cout << "Latest Open Price: $" << latestOpen(stock, endIndex) << endl;
 	cout << "Latest Closing Price: $" << latestClose(stock, endIndex) << endl;
 	cout << "Intraday Change: " << openToCloseChange(stock, endIndex) << "%" << endl;
@@ -39,7 +40,7 @@ int main(){
 	cout << "Average Closing Price Over " << numDays << " days: " <<
 avgClose(stock, numDays, endIndex) << endl;
 	cout << "zscore Over " << numDays << " days: " << getZScore(stock, numDays, endIndex) << endl;
-	cout << "Average volume over " << numDays << " days: " << fixed << setprecision(0) << avgVolume(stock, numDays, endIndex) << endl;
+	cout << "Average volume over " << numDays << " days (excludes latest day): " << fixed << setprecision(0) << avgVolume(stock, numDays, endIndex) << endl;
 	cout << "Trading Volume On Last Trading Day: " << stock.stockInfo.at(endIndex).tradeVol << endl;
 	cout << defaultfloat << setprecision(6);
 	cout << "Volume Ratio (" << numDays << " days): " << volumeRatio(stock, numDays, endIndex) << endl;
