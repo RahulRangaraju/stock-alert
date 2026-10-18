@@ -2,6 +2,7 @@
 #include <iomanip>
 #include "stock.h"
 #include "analysis.h"
+#include "menu.h"
 
 using namespace std;
 
@@ -18,18 +19,18 @@ string readTicker(){
     cin >> stockName;
     return stockName;
 }
-
+/*
 int main(){
     vector<string> names = {"NVDA", "AAPL", "MU", "MSFT", "IREN", "INTC"};
     vector<stock> stocks;
     for ( const string& name : names ){
 	stocks.push_back(loadStock(name));
     }
-    int numDays = 99;
+    int numDays = 200;
     for (const stock& stock : stocks){
-	int endIndex = 100;
+	int endIndex = static_cast<int>(stock.stockInfo.size() - 1);
 	cout << "Ticker: " << stock.ticker << endl;
-	cout << "Days Worth Of Info: " << stock.stockInfo.size() << endl;
+	cout << "Total Days In Set: " << stock.stockInfo.size() << endl;
 	cout << stock.stockInfo.at(endIndex - numDays + 1).date.substr(0,10) << " to " << stock.stockInfo.at(endIndex).date.substr(0,10) << endl;
 	cout << "Latest Open Price: $" << latestOpen(stock, endIndex) << endl;
 	cout << "Latest Closing Price: $" << latestClose(stock, endIndex) << endl;
@@ -51,5 +52,23 @@ avgClose(stock, numDays, endIndex) << endl;
 	    cout << "************" << endl;
 	}
     }
+    return 0;
+}
+*/
+
+int main(){
+    vector<string> names = {"NVDA", "AAPL", "MU", "MSFT", "IREN", "INTC"};
+    vector<stock> stocks;
+    int numDays = 10;
+    for ( const string& name : names ){
+	stocks.push_back(loadStock(name));
+    }
+    cout << "Pick A Stock To Track: " << endl;
+    displayStocks(stocks);
+    int choice = getChoice(1, static_cast<int>(stocks.size()));
+    const stock& chosen = stocks.at(choice - 1);
+    int endIndex = static_cast<int>(chosen.stockInfo.size()) - 1;
+    displayPriceHistory(stocks.at(choice - 1), numDays, endIndex);
+    
     return 0;
 }
