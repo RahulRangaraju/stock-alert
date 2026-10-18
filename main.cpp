@@ -25,7 +25,7 @@ int main(){
     for ( const string& name : names ){
 	stocks.push_back(loadStock(name));
     }
-    int numDays = 50;
+    int numDays = 200;
     for (const stock& stock : stocks){
 	int endIndex = static_cast<int>(stock.stockInfo.size()) - 1;
 	cout << "Ticker: " << stock.ticker << endl;
@@ -42,7 +42,7 @@ avgClose(stock, numDays, endIndex) << endl;
 	cout << "Average volume over " << numDays << " days: " << fixed << setprecision(0) << avgVolume(stock, numDays, endIndex) << endl;
 	cout << "Trading Volume On Last Trading Day: " << stock.stockInfo.at(endIndex).tradeVol << endl;
 	cout << defaultfloat << setprecision(6);
-	cout << "Volume Ratio Over " << numDays << " days: " << volumeRatio(stock, numDays, endIndex) << endl;
+	cout << "Volume Ratio (" << numDays << " days): " << volumeRatio(stock, numDays, endIndex) << endl;
 	cout << "------------" << endl;
 	if (theAlgorithm(stock, numDays, endIndex)){
 	    cout << "************" << endl;
