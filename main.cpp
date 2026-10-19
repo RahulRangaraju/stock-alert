@@ -20,7 +20,7 @@ string readTicker(){
     return stockName;
 }
 
-const int MENU_CHOICES = 7;
+const int MENU_CHOICES = 5;
 const int HISTORY_MENU_CHOICES = 4;
 const int INDICATOR_CHOICES = 9;
 const int HISTORY_DAYS = 100;
@@ -146,23 +146,13 @@ int main(){
 	}
 	case 3: 
 	    cout << "******************" << endl;
-	    cout << "Average volume (last " << VOLUME_WINDOW << " days): " << fixed << setprecision(0) << avgVolume(chosen, VOLUME_WINDOW, endIndex) << endl;
-	    cout << defaultfloat << setprecision(6);
-	    cout << "Volume Ratio: " << volumeRatio(chosen, VOLUME_WINDOW, endIndex) << endl;
-	    cout << "******************" << endl;
-	    break;
-	case 4:
-	    cout << "Longest Downstreak Over " << totalInfo << " Days: " << downStreak(chosen, endIndex) << endl;
-	    break;
-	case 5: 
-	    cout << "******************" << endl;
 	    cout << "Pick A New Stock: " << endl;
 	    cout << "******************" << endl;
 	    displayStocks(stocks);
 	    stockIndex = getChoice(1, static_cast<int>(stocks.size()));
 	    cout << "******************" << endl;
 	    break;
-	case 6: 
+	case 4: 
 	    isRunning = false;	    
 	    break;
 	}

@@ -54,10 +54,8 @@ void displayMenu(){
     cout << "1. Price History: " << endl;
     cout << "2. Percent Change (1 day): " << endl;
     cout << "3. Indicators" << endl;
-    cout << "4. Trade Volume and Volume Ratio: " << endl;
-    cout << "5. Longest Down Streak: " << endl;
-    cout << "6. Change Stock" << endl;
-    cout << "7. Quit" << endl;
+    cout << "4. Change Stock" << endl;
+    cout << "5. Quit" << endl;
     // implement settings option to modify all window settings
 }
 
