@@ -16,7 +16,6 @@ int getChoice(int low, int high){
 	cin.clear();
 	cin.ignore(numeric_limits<streamsize>::max(), '\n');
     }
-    cout << endl;
     if (userChoice >= low && userChoice <= high){
 	validChoice = true;	
     }
