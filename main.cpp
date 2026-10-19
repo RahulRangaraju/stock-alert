@@ -20,8 +20,9 @@ string readTicker(){
     return stockName;
 }
 
-const int MENU_CHOICES = 6;
-const int HISTORY_MENU_CHOICES = 3;
+const int MENU_CHOICES = 7;
+const int HISTORY_MENU_CHOICES = 4;
+const int INDICATOR_CHOICES = 9;
 const int HISTORY_DAYS = 100;
 const int ZSCORE_WINDOW = 100;
 const int VOLUME_WINDOW = 100;
@@ -40,6 +41,7 @@ int main(){
     do {
     const stock& chosen = stocks.at(stockIndex - 1);
     int endIndex = static_cast<int>(chosen.stockInfo.size()) - 1;
+    int totalInfo = static_cast<int>(chosen.stockInfo.size());
     cout << "Ticker: " << chosen.ticker << endl;
     displayMenu();
     int choice = getChoice(1, MENU_CHOICES);
@@ -91,7 +93,10 @@ int main(){
 		    cout << "******************" << endl;
 		    break;
 		}
-		case 3:
+		case 3: 
+		    displayPriceHistory(chosen, totalInfo, endIndex);
+		    break;
+		case 4:
 		    priceHistoryLoop = false;
 		    break;
 	    } 
@@ -104,11 +109,41 @@ int main(){
 	    cout << "Intraday Change: " << openToCloseChange(chosen, endIndex) << "%" << endl;
 	    cout << "******************" << endl;
 	    break;
-	case 2:
+	case 2: {
+	    bool isInd = true;
 	    cout << "******************" << endl;
-	    cout << "ZScore: " << getZScore(chosen, ZSCORE_WINDOW, endIndex) << endl;
+	    // cout << "ZScore: " << getZScore(chosen, ZSCORE_WINDOW, endIndex) << endl;
+	    cout << "Indicators: " << endl;
 	    cout << "******************" << endl;
-	    break;
+	    do {
+	    isInd = true;
+	    indicatorMenu();
+	    int iChoice = getChoice(1, INDICATOR_CHOICES);
+		switch (iChoice){
+		    case 1: 
+			cout << "******************" << endl;
+			cout << "ZScore: " << getZScore(chosen, ZSCORE_WINDOW, endIndex) << endl;
+			cout << "******************" << endl;
+			break;
+		    case 2: 
+			cout << "******************" << endl;
+			cout << "Longest Downstreak Over " << totalInfo << " Days: " << downStreak(chosen, endIndex) << endl;
+			cout << "******************" << endl;
+			break;
+		    case 3: 
+			cout << "******************" << endl;
+			cout << "Average volume (last " << VOLUME_WINDOW << " days): " << fixed << setprecision(0) << avgVolume(chosen, VOLUME_WINDOW, endIndex) << endl;
+			cout << defaultfloat << setprecision(6);
+			cout << "Volume Ratio: " << volumeRatio(chosen, VOLUME_WINDOW, endIndex) << endl;
+			cout << "******************" << endl;
+			break;
+		    case 4:
+			isInd = false;
+			break;
+		}
+	    } while (isInd);
+	break;
+	}
 	case 3: 
 	    cout << "******************" << endl;
 	    cout << "Average volume (last " << VOLUME_WINDOW << " days): " << fixed << setprecision(0) << avgVolume(chosen, VOLUME_WINDOW, endIndex) << endl;
@@ -116,7 +151,10 @@ int main(){
 	    cout << "Volume Ratio: " << volumeRatio(chosen, VOLUME_WINDOW, endIndex) << endl;
 	    cout << "******************" << endl;
 	    break;
-	case 4: 
+	case 4:
+	    cout << "Longest Downstreak Over " << totalInfo << " Days: " << downStreak(chosen, endIndex) << endl;
+	    break;
+	case 5: 
 	    cout << "******************" << endl;
 	    cout << "Pick A New Stock: " << endl;
 	    cout << "******************" << endl;
@@ -124,8 +162,9 @@ int main(){
 	    stockIndex = getChoice(1, static_cast<int>(stocks.size()));
 	    cout << "******************" << endl;
 	    break;
-	case 5: 
+	case 6: 
 	    isRunning = false;	    
+	    break;
 	}
     } while (isRunning); 
     return 0;

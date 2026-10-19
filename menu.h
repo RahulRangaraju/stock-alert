@@ -10,5 +10,6 @@ void displayStocks(const vector<stock>&);
 int getChoice(int, int);
 void displayPriceHistory(const stock&, int, int);
 void priceHistoryMenu();
+void indicatorMenu();
 
 #endif

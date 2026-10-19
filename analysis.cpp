@@ -175,8 +175,21 @@ double closeLocation(const stock&, int){
     return -1;
 }
 
-int downStreak(const stock&, int){
-    return -1;
+int downStreak(const stock& stock, int endIndex){
+    int count = 0;
+    int longestStreak = 0;
+    for (int i = 0; i + 1 < endIndex; i++){
+	if (stock.stockInfo.at(i).closePrice > stock.stockInfo.at(i + 1).closePrice){
+	    count++;
+	}
+	else {
+	    if (count > longestStreak){
+		longestStreak = count;
+	    }
+	    count = 0;
+	}
+    }
+    return longestStreak;
 }
 
 bool theAlgorithm(const stock& stock, int days, int endIndex){

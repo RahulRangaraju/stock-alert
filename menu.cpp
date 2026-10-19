@@ -53,16 +53,25 @@ void displayPriceHistory(const stock& stock, int numDays, int endIndex){
 void displayMenu(){
     cout << "1. Price History: " << endl;
     cout << "2. Percent Change (1 day): " << endl;
-    cout << "3. ZScore / Alert: " << endl;
+    cout << "3. Indicators" << endl;
     cout << "4. Trade Volume and Volume Ratio: " << endl;
-    cout << "5. Change Stock" << endl;
-    cout << "6. Quit" << endl;
+    cout << "5. Longest Down Streak: " << endl;
+    cout << "6. Change Stock" << endl;
+    cout << "7. Quit" << endl;
     // implement settings option to modify all window settings
 }
 
 void priceHistoryMenu(){
     cout << "1. Search By Date: " << endl;
     cout << "2. Search By Date Range: " << endl;
-    cout << "3. Exit: " << endl;
+    cout << "3. All Available Price History: " << endl;
+    cout << "4. Exit: " << endl;
 }
 
+void indicatorMenu(){
+    cout << "1. View ZScore: " << endl;
+    cout << "2. Longest Downstreak: " << endl;
+    cout << "3. Volume Ratio: " << endl;
+    cout << "4. Exit: " << endl;
+    
+}
