@@ -1,5 +1,6 @@
 #include <iostream>
 #include <limits>
+#include <iomanip>
 #include "menu.h"
 #include "analysis.h"
 
@@ -32,6 +33,10 @@ int i = 0;
 }
 
 void displayPriceHistory(const stock& stock, int numDays, int endIndex){
+    if (numDays > endIndex + 1){
+	numDays = endIndex + 1;
+    }
+    cout << fixed << setprecision(2);
     for (int i = 0; i < numDays; i++){
 	cout << "________________" << endl;
 	cout << "Date: " << stock.stockInfo.at(endIndex - i).date.substr(0, 10) << endl;
@@ -42,6 +47,7 @@ void displayPriceHistory(const stock& stock, int numDays, int endIndex){
 	cout << "Daily Low: " << stock.stockInfo.at(endIndex - i).dailyLow << endl;
 	cout << "Trade Volume: " << stock.stockInfo.at(endIndex - i).tradeVol << endl;
     }
+    cout << defaultfloat << setprecision(6);
 }
 
 void displayMenu(){

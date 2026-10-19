@@ -76,7 +76,7 @@ int main(){
 */
 
 const int MENU_CHOICES = 6;
-const int HISTORY_DAYS = 10;
+const int HISTORY_DAYS = 300;
 const int ZSCORE_WINDOW = 100;
 const int VOLUME_WINDOW = 100;
 
