@@ -44,15 +44,16 @@ int main(){
     displayMenu();
     int choice = getChoice(1, MENU_CHOICES);
     choice -= 1;
-    cout << "************************" << endl;
     switch (choice){
 	case 0:
 	    {
-	    priceHistoryMenu();
-	    displayPriceHistory(chosen, HISTORY_DAYS, endIndex);
+	//    priceHistoryMenu();
+	//    displayPriceHistory(chosen, HISTORY_DAYS, endIndex);
 	    do {
 		priceHistoryLoop = true;
+		cout << "******************" << endl;
 		priceHistoryMenu();
+		cout << "******************" << endl;
 		int subChoice = getChoice(1, HISTORY_MENU_CHOICES);
 	    switch (subChoice){
 		case 1: {
@@ -67,6 +68,7 @@ int main(){
 		    break;
 		}
 		case 2: {
+		    cout << "******************" << endl;
 		    string start;
 		    string end;
 		    cout << "Enter A Start Date: ";
@@ -76,13 +78,17 @@ int main(){
 		    int sIndex = findDateIndex(chosen, start);
 		    int eIndex = findDateIndex(chosen, end);
 		    if (sIndex == -1 || eIndex == -1){
+			cout << "******************" << endl;
 			cout << "Invalid Range" << endl;
+			cout << "******************" << endl;
 		    }
 		    int range = eIndex - sIndex;
 		    if (range < 0){
 			cout << "Invalid Range" << endl;
 		    }
+		    cout << "******************" << endl;
 		    displayPriceHistory(chosen, range + 1, eIndex);
+		    cout << "******************" << endl;
 		    break;
 		}
 		case 3:
@@ -93,26 +99,34 @@ int main(){
 	    break;
 	    }
 	case 1:
+	    cout << "******************" << endl;
 	    cout << "Daily Change: " << getPercentChange(chosen, endIndex) << "%" << endl;
 	    cout << "Intraday Change: " << openToCloseChange(chosen, endIndex) << "%" << endl;
+	    cout << "******************" << endl;
 	    break;
 	case 2:
+	    cout << "******************" << endl;
 	    cout << "ZScore: " << getZScore(chosen, ZSCORE_WINDOW, endIndex) << endl;
+	    cout << "******************" << endl;
 	    break;
 	case 3: 
+	    cout << "******************" << endl;
 	    cout << "Average volume (last " << VOLUME_WINDOW << " days): " << fixed << setprecision(0) << avgVolume(chosen, VOLUME_WINDOW, endIndex) << endl;
 	    cout << defaultfloat << setprecision(6);
 	    cout << "Volume Ratio: " << volumeRatio(chosen, VOLUME_WINDOW, endIndex) << endl;
+	    cout << "******************" << endl;
 	    break;
 	case 4: 
+	    cout << "******************" << endl;
 	    cout << "Pick A New Stock: " << endl;
+	    cout << "******************" << endl;
 	    displayStocks(stocks);
 	    stockIndex = getChoice(1, static_cast<int>(stocks.size()));
+	    cout << "******************" << endl;
 	    break;
 	case 5: 
 	    isRunning = false;	    
 	}
-    cout << "************************" << endl;
     } while (isRunning); 
     return 0;
 }
