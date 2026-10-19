@@ -21,12 +21,14 @@ string readTicker(){
 }
 
 const int MENU_CHOICES = 6;
-const int HISTORY_DAYS = 300;
+const int HISTORY_MENU_CHOICES = 3;
+const int HISTORY_DAYS = 100;
 const int ZSCORE_WINDOW = 100;
 const int VOLUME_WINDOW = 100;
 
 int main(){
     bool isRunning = true;
+    bool priceHistoryLoop = true;
     vector<string> names = {"NVDA", "AAPL", "MU", "MSFT", "IREN", "INTC"};
     vector<stock> stocks;
     for ( const string& name : names ){
@@ -45,8 +47,51 @@ int main(){
     cout << "************************" << endl;
     switch (choice){
 	case 0:
+	    {
+	    priceHistoryMenu();
 	    displayPriceHistory(chosen, HISTORY_DAYS, endIndex);
+	    do {
+		priceHistoryLoop = true;
+		priceHistoryMenu();
+		int subChoice = getChoice(1, HISTORY_MENU_CHOICES);
+	    switch (subChoice){
+		case 1: {
+		    string date;
+		    cout << "Enter a date: (yyyy-mm-dd): ";
+		    cin >> date;
+		    int index = findDateIndex(chosen, date);
+		    if (index == -1){
+			cout << "No Data For That Date..." << endl;
+		    }
+		    displayPriceHistory(chosen, 1, index);
+		    break;
+		}
+		case 2: {
+		    string start;
+		    string end;
+		    cout << "Enter A Start Date: ";
+		    cin >> start;
+		    cout << "Enter A End Date: ";
+		    cin >> end;
+		    int sIndex = findDateIndex(chosen, start);
+		    int eIndex = findDateIndex(chosen, end);
+		    if (sIndex == -1 || eIndex == -1){
+			cout << "Invalid Range" << endl;
+		    }
+		    int range = eIndex - sIndex;
+		    if (range < 0){
+			cout << "Invalid Range" << endl;
+		    }
+		    displayPriceHistory(chosen, range + 1, eIndex);
+		    break;
+		}
+		case 3:
+		    priceHistoryLoop = false;
+		    break;
+	    } 
+	    }while (priceHistoryLoop);
 	    break;
+	    }
 	case 1:
 	    cout << "Daily Change: " << getPercentChange(chosen, endIndex) << "%" << endl;
 	    cout << "Intraday Change: " << openToCloseChange(chosen, endIndex) << "%" << endl;

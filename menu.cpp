@@ -52,10 +52,17 @@ void displayPriceHistory(const stock& stock, int numDays, int endIndex){
 
 void displayMenu(){
     cout << "1. Price History: " << endl;
-    cout << "2. Latest Daily Change: " << endl;
+    cout << "2. Percent Change (1 day): " << endl;
     cout << "3. ZScore / Alert: " << endl;
     cout << "4. Trade Volume and Volume Ratio: " << endl;
     cout << "5. Change Stock" << endl;
     cout << "6. Quit" << endl;
+    // implement settings option to modify all window settings
+}
+
+void priceHistoryMenu(){
+    cout << "1. Search By Date: " << endl;
+    cout << "2. Search By Date Range: " << endl;
+    cout << "3. Exit: " << endl;
 }
 

@@ -150,6 +150,15 @@ double getZScore(const stock& stock, int days, int endIndex){
     return zscore;
 }
 
+int findDateIndex(const stock& stock, const string& date){
+    for (int i = 0; i < static_cast<int>(stock.stockInfo.size()); i++){
+	if (date == stock.stockInfo.at(i).date.substr(0, 10)){
+	    return i;
+	}	
+    }
+    return -1;
+}
+
 double drawdownFromHigh(const stock&, int, int){
     return -1;
 }
