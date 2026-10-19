@@ -150,6 +150,26 @@ double getZScore(const stock& stock, int days, int endIndex){
     return zscore;
 }
 
+double drawdownFromHigh(const stock&, int, int){
+    return -1;
+}
+
+double volatilityRatio(const stock&, int, int){
+    return -1;
+}
+
+double gapPercent(const stock&, int){
+    return -1;
+}
+
+double closeLocation(const stock&, int){
+    return -1;
+}
+
+int downStreak(const stock&, int){
+    return -1;
+}
+
 bool theAlgorithm(const stock& stock, int days, int endIndex){
     double zscore = getZScore(stock, days, endIndex);
     if (zscore == -1000){
