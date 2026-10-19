@@ -5,7 +5,7 @@
 #include <iostream>
 #include "stock.h"
 
-void displayMenu(const vector<stock>&);
+void displayMenu();
 void displayStocks(const vector<stock>&);
 int getChoice(int, int);
 void displayPriceHistory(const stock&, int, int);

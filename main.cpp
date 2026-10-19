@@ -56,10 +56,11 @@ avgClose(stock, numDays, endIndex) << endl;
 }
 */
 
+/*
 int main(){
     vector<string> names = {"NVDA", "AAPL", "MU", "MSFT", "IREN", "INTC"};
     vector<stock> stocks;
-    int numDays = 10;
+    int numDays = 1;
     for ( const string& name : names ){
 	stocks.push_back(loadStock(name));
     }
@@ -70,5 +71,47 @@ int main(){
     int endIndex = static_cast<int>(chosen.stockInfo.size()) - 1;
     displayPriceHistory(stocks.at(choice - 1), numDays, endIndex);
     
+    return 0;
+}
+*/
+
+const int MENU_CHOICES = 6;
+
+int main(){
+    bool isRunning = true;
+    vector<string> names = {"NVDA", "AAPL", "MU", "MSFT", "IREN", "INTC"};
+    vector<stock> stocks;
+    int numDays = 1;
+    for ( const string& name : names ){
+	stocks.push_back(loadStock(name));
+    }
+    cout << "Pick A Stock To Track: " << endl;
+    displayStocks(stocks);
+    int choice = getChoice(1, static_cast<int>(stocks.size()));
+    const stock& chosen = stocks.at(choice - 1);
+    int endIndex = static_cast<int>(chosen.stockInfo.size()) - 1;
+    cout << "Ticker: " << chosen.ticker << endl;
+    displayMenu();
+    choice = getChoice(1, MENU_CHOICES);
+    choice -= 1;
+    do {
+    switch (choice){
+	case 0:
+	    displayPriceHistory(chosen, numDays, endIndex);
+	case 1:
+	    cout << "Daily Change" << openToCloseChange(chosen, endIndex) << endl;
+	case 2:
+	    cout << "ZScore: " << getZScore(chosen, numDays, endIndex) << endl;
+	case 3: 
+	    cout << "Average volume (last " << numDays << " days)" << avgVolume(chosen, numDays, endIndex) << endl;
+	    cout << "Volume Ratio: " << volumeRatio(chosen, numDays, endIndex);
+	case 4: 
+	    displayStocks(stocks);
+	    choice = getChoice(1, static_cast<int>(stocks.size()));
+	    displayMenu();
+	case 5: 
+	    isRunning = false;	    
+	}
+    } while (isRunning); 
     return 0;
 }

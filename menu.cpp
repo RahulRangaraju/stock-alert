@@ -32,14 +32,7 @@ int i = 0;
     }
 }
 
-void displayMenu(){
-	
-}
-
 void displayPriceHistory(const stock& stock, int numDays, int endIndex){
-    cout << "************" << endl;
-    cout << "Ticker: " << stock.ticker << endl;
-    cout << "************" << endl;
     for (int i = 0; i < numDays; i++){
 	cout << "________________" << endl;
 	cout << "Date: " << stock.stockInfo.at(endIndex - i).date.substr(0, 10) << endl;
@@ -50,5 +43,14 @@ void displayPriceHistory(const stock& stock, int numDays, int endIndex){
 	cout << "Daily Low: " << stock.stockInfo.at(endIndex - i).dailyLow << endl;
 	cout << "Trade Volume: " << stock.stockInfo.at(endIndex - i).tradeVol << endl;
     }
-    
 }
+
+void displayMenu(){
+    cout << "1. Price History: " << endl;
+    cout << "2. Latest Daily Change: " << endl;
+    cout << "3. ZScore / Alert: " << endl;
+    cout << "4. Trade Volume and Volume Ratio: " << endl;
+    cout << "5. Change Stock" << endl;
+    cout << "6. Quit" << endl;
+}
+
