@@ -20,7 +20,7 @@ string readTicker(){
     return stockName;
 }
 
-const int MENU_CHOICES = 5;
+const int MENU_CHOICES = 6;
 const int HISTORY_MENU_CHOICES = 4;
 const int INDICATOR_CHOICES = 9;
 const int HISTORY_DAYS = 100;
@@ -90,7 +90,6 @@ int main(){
 		    }
 		    cout << "******************" << endl;
 		    displayPriceHistory(chosen, range + 1, eIndex);
-		    cout << "******************" << endl;
 		    break;
 		}
 		case 3: 
@@ -103,13 +102,7 @@ int main(){
 	    }while (priceHistoryLoop);
 	    break;
 	    }
-	case 1:
-	    cout << "******************" << endl;
-	    cout << "Daily Change: " << getPercentChange(chosen, endIndex) << "%" << endl;
-	    cout << "Intraday Change: " << openToCloseChange(chosen, endIndex) << "%" << endl;
-	    cout << "******************" << endl;
-	    break;
-	case 2: {
+	case 1: {
 	    bool isInd = true;
 	    cout << "******************" << endl;
 	    // cout << "ZScore: " << getZScore(chosen, ZSCORE_WINDOW, endIndex) << endl;
@@ -126,8 +119,14 @@ int main(){
 			cout << "******************" << endl;
 			break;
 		    case 2: 
+			if (longestDownStreak(chosen, endIndex) == -1){
+			    cout << "******************" << endl;
+			    cout << "Not Enough Data" << endl;
+			    cout << "******************" << endl;
+			    break;
+			}
 			cout << "******************" << endl;
-			cout << "Longest Downstreak Over " << totalInfo << " Days: " << downStreak(chosen, endIndex) << endl;
+			cout << "Longest Downstreak Over " << totalInfo << " Days: " << longestDownStreak(chosen, endIndex) << endl;
 			cout << "******************" << endl;
 			break;
 		    case 3: 
@@ -144,13 +143,17 @@ int main(){
 	    } while (isInd);
 	break;
 	}
-	case 3: 
+	case 2: 
 	    cout << "******************" << endl;
 	    cout << "Pick A New Stock: " << endl;
 	    cout << "******************" << endl;
 	    displayStocks(stocks);
 	    stockIndex = getChoice(1, static_cast<int>(stocks.size()));
 	    cout << "******************" << endl;
+	    break;
+	case 3:
+	    // IMPLEMENT ANALYSIS SETTINGS;
+	    // CONFIGURE DATES AND WINDOWS TO ANALYZE
 	    break;
 	case 4: 
 	    isRunning = false;	    

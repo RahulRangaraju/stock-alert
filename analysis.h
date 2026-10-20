@@ -19,7 +19,7 @@ double drawdownFromHigh(const stock&, int, int);
 double volatilityRatio(const stock&, int, int);
 double gapPercent(const stock&, int);
 double closeLocation(const stock&, int);
-int downStreak(const stock&, int);
+int longestDownStreak(const stock&, int);
 int findDateIndex(const stock&, const string&);
 
 #endif 

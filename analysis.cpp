@@ -175,10 +175,13 @@ double closeLocation(const stock&, int){
     return -1;
 }
 
-int downStreak(const stock& stock, int endIndex){
+int longestDownStreak(const stock& stock, int endIndex){
     int count = 0;
     int longestStreak = 0;
-    for (int i = 0; i + 1 < endIndex; i++){
+    if (endIndex < 1 || endIndex > static_cast<int>(stock.stockInfo.size())){
+	return -1;
+    }
+    for (int i = 0; i + 1 <= endIndex; i++){
 	if (stock.stockInfo.at(i).closePrice > stock.stockInfo.at(i + 1).closePrice){
 	    count++;
 	}
