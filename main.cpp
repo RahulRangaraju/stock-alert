@@ -23,9 +23,10 @@ string readTicker(){
 const int MENU_CHOICES = 6;
 const int HISTORY_MENU_CHOICES = 4;
 const int INDICATOR_CHOICES = 9;
-const int HISTORY_DAYS = 100;
-const int ZSCORE_WINDOW = 100;
-const int VOLUME_WINDOW = 100;
+const int HISTORY_DAYS = 251;
+const int ZSCORE_WINDOW = 251;
+const int VOLUME_WINDOW = 250;
+const int TREND_WINDOW = 251;
 
 int main(){
     bool isRunning = true;
@@ -131,12 +132,32 @@ int main(){
 			break;
 		    case 3: 
 			cout << "******************" << endl;
+			cout << "Current Downstreak: " << currentDownStreak(chosen, endIndex) << endl;
+			cout << "******************" << endl;
+			break;
+		    case 4:
+			cout << "******************" << endl;
+			cout << "Trend Ratio: " << trendRatio(chosen, TREND_WINDOW, endIndex) << endl;
+			cout << "******************" << endl;
+			break;
+		    case 5: 
+			cout << "******************" << endl;
 			cout << "Average volume (last " << VOLUME_WINDOW << " days): " << fixed << setprecision(0) << avgVolume(chosen, VOLUME_WINDOW, endIndex) << endl;
+			cout << "Today's Volume: " << chosen.stockInfo.at(endIndex).tradeVol << endl;
 			cout << defaultfloat << setprecision(6);
 			cout << "Volume Ratio: " << volumeRatio(chosen, VOLUME_WINDOW, endIndex) << endl;
 			cout << "******************" << endl;
 			break;
-		    case 4:
+		    case 6: 
+			cout << "******************" << endl;
+			if (gapPercent(chosen, endIndex) == -1000){
+			    cout << "Gap Percent: N/A" << endl;
+			} else {
+			cout << "Gap Percent: " << gapPercent(chosen, endIndex) << "%" << endl;
+			}
+			cout << "******************" << endl;
+			break;
+		    case 7:
 			isInd = false;
 			break;
 		}

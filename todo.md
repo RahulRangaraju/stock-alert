@@ -2,14 +2,14 @@
 
 ## Next up
 - [ ] Test Analysis Settings (set date, check indicators on an older date)
-- [ ] Current `downStreak(stock, endIndex)` (separate from longest)
-- [ ] `gapPercent`, then `closeLocation`
-
+- [x] Current `downStreak(stock, endIndex)` (separate from longest)
+- [x] `gapPercent`,
+- [ ]  then `closeLocation`
 ## Indicators
 - [x] z-score, volume ratio, longest downstreak
 - [ ] gapPercent
 - [ ] closeLocation
-- [ ] trendRatio (close / avgClose over TREND_WINDOW)
+- [x] trendRatio (close / avgClose over TREND_WINDOW)
 - [ ] drawdownFromHigh
 - [ ] volatilityRatio
 - [ ] RSI

@@ -75,7 +75,10 @@ void priceHistoryMenu(){
 void indicatorMenu(){
     cout << "1. View ZScore " << endl;
     cout << "2. Longest Downstreak " << endl;
-    cout << "3. Volume Ratio " << endl;
-    cout << "4. Return To Main Menu " << endl;
+    cout << "3. Current Downstreak " << endl;
+    cout << "4. Trend Ratio " << endl;
+    cout << "5. Volume Ratio " << endl;
+    cout << "6. Gap Percent " << endl;
+    cout << "7. Return To Main Menu " << endl;
     
 }

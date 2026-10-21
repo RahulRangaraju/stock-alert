@@ -1,4 +1,6 @@
 #include <cmath>
+#include <string>
+#include <iostream>
 #include "analysis.h"
 
 using namespace std;
@@ -167,8 +169,15 @@ double volatilityRatio(const stock&, int, int){
     return -1;
 }
 
-double gapPercent(const stock&, int){
-    return -1;
+double gapPercent(const stock& stock, int endIndex){
+    if (endIndex < 1 || endIndex > static_cast<int>(stock.stockInfo.size()) - 1){
+	return -1000;
+    }
+    double percent;
+    double todaysOpen = stock.stockInfo.at(endIndex).openPrice;
+    double yesterdaysClose = stock.stockInfo.at(endIndex - 1).closePrice;
+    percent = ( todaysOpen - yesterdaysClose ) / yesterdaysClose * 100;
+    return percent;
 }
 
 double closeLocation(const stock&, int){
@@ -193,6 +202,39 @@ int longestDownStreak(const stock& stock, int endIndex){
 	}
     }
     return longestStreak;
+}
+
+int currentDownStreak(const stock& stock, int endIndex){
+    int count = 0;
+    int i = endIndex;
+    int j = i - 1;
+    if (i < 0 || j < 0 || i > static_cast<int>(stock.stockInfo.size()) - 1){
+	return -1;
+    }
+    if (endIndex < 1){
+	return 0;
+    }
+    while (j >= 0 && stock.stockInfo.at(i).closePrice < stock.stockInfo.at(j).closePrice){
+	count++;
+	i--;
+	j--;
+    }
+    return count;
+}
+
+double trendRatio(const stock& stock, int days, int endIndex){
+    if (endIndex < 0 || endIndex >= static_cast<int>(stock.stockInfo.size()) || days > endIndex + 1){
+	return -1;
+    }
+    double ratio;
+    double total = 0;
+    double closeRecentDay = stock.stockInfo.at(endIndex).closePrice;
+    for (int i = 0; i < days; i++){
+	total += stock.stockInfo.at(endIndex - i).closePrice;
+    }
+    double average = total / days;
+    ratio = closeRecentDay / average;
+    return ratio;
 }
 
 bool theAlgorithm(const stock& stock, int days, int endIndex){

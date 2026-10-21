@@ -16,10 +16,12 @@ bool theAlgorithm(const stock&, int, int);
 double avgVolume(const stock&, int, int);
 double volumeRatio(const stock&, int, int);
 double drawdownFromHigh(const stock&, int, int);
+double trendRatio(const stock&, int, int);
 double volatilityRatio(const stock&, int, int);
 double gapPercent(const stock&, int);
 double closeLocation(const stock&, int);
 int longestDownStreak(const stock&, int);
+int currentDownStreak(const stock&, int);
 int findDateIndex(const stock&, const string&);
 
 #endif 
