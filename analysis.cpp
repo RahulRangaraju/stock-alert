@@ -1,6 +1,6 @@
 #include <cmath>
 #include <string>
-#include <iostream>
+#include <algorithm>
 #include "analysis.h"
 
 using namespace std;
@@ -161,12 +161,49 @@ int findDateIndex(const stock& stock, const string& date){
     return -1;
 }
 
-double drawdownFromHigh(const stock&, int, int){
-    return -1;
+double drawdownFromHigh(const stock& stock, int days, int endIndex){
+    if (days > endIndex + 1 || endIndex < 0 || endIndex > static_cast<int>(stock.stockInfo.size()) - 1){
+	return -1000;
+    } 
+    double rangeHigh = stock.stockInfo.at(endIndex).dailyHigh;
+    double todayClose = stock.stockInfo.at(endIndex).closePrice;
+    for (int i = 0; i < days; i++){
+	if (stock.stockInfo.at(endIndex - i).dailyHigh > rangeHigh){
+	rangeHigh = stock.stockInfo.at(endIndex - i).dailyHigh;
+	}
+    }
+    double drawdown = ( todayClose - rangeHigh ) / rangeHigh * 100;
+    return drawdown;
 }
 
-double volatilityRatio(const stock&, int, int){
-    return -1;
+double trueRange(const stock& stock, int endIndex){
+    if (endIndex < 1 || endIndex > static_cast<int>(stock.stockInfo.size()) - 1){
+	return -1;
+    }
+    double high = stock.stockInfo.at(endIndex).dailyHigh;
+    double low = stock.stockInfo.at(endIndex).dailyLow;
+    double prevClose = stock.stockInfo.at(endIndex - 1).closePrice;
+    double range1 = high - low;
+    double range2 = abs(high - prevClose);
+    double range3 = abs(low - prevClose);
+    double realRange = max({range1,range2,range3});
+    return realRange;
+}
+
+double volatilityRatio(const stock& stock, int days, int endIndex){
+    if (endIndex - days < 0 || days < 1 || endIndex > static_cast<int>(stock.stockInfo.size()) - 1){
+	return -1;
+    }
+    double todayRange = trueRange(stock, endIndex);
+    double averageRange = 0;
+    for (int i = 0; i < days; i++){
+	averageRange += trueRange(stock, endIndex - i);
+    }
+    averageRange /= days;
+    if (averageRange == 0){
+	return -1;
+    }
+    return todayRange / averageRange;
 }
 
 double gapPercent(const stock& stock, int endIndex){
@@ -180,8 +217,19 @@ double gapPercent(const stock& stock, int endIndex){
     return percent;
 }
 
-double closeLocation(const stock&, int){
-    return -1;
+double closeLocation(const stock& stock, int endIndex){
+    if (endIndex < 0 || endIndex > static_cast<int>(stock.stockInfo.size()) - 1){
+	return -1;
+    }
+    double high = static_cast<double>(stock.stockInfo.at(endIndex).dailyHigh);
+    double low = static_cast<double>(stock.stockInfo.at(endIndex).dailyLow);
+    double range = high - low;
+    if (range <= 0){
+	return -1;
+    }
+    double distFromLow = static_cast<double>(stock.stockInfo.at(endIndex).closePrice) - low;
+    double location = distFromLow / range;
+    return location;
 }
 
 int longestDownStreak(const stock& stock, int endIndex){

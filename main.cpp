@@ -27,6 +27,8 @@ const int HISTORY_DAYS = 251;
 const int ZSCORE_WINDOW = 251;
 const int VOLUME_WINDOW = 250;
 const int TREND_WINDOW = 251;
+const int DRAWDOWN_WINDOW = 251;
+const int VOLATILITY_WINDOW = 251;
 
 int main(){
     bool isRunning = true;
@@ -112,7 +114,7 @@ int main(){
 	    do {
 	    isInd = true;
 	    indicatorMenu();
-	    int iChoice = getChoice(1, INDICATOR_CHOICES);
+	    int iChoice = getChoice(0, INDICATOR_CHOICES);
 		switch (iChoice){
 		    case 1: 
 			cout << "******************" << endl;
@@ -158,6 +160,36 @@ int main(){
 			cout << "******************" << endl;
 			break;
 		    case 7:
+			cout << "******************" << endl;
+			if (closeLocation(chosen, endIndex) == -1){
+			    cout << "Close Location: N/A" << endl;
+			}
+			else {
+			cout << "Close Location: " << closeLocation(chosen, endIndex) << endl;
+			}
+			cout << "******************" << endl;
+			break;
+		    case 8:
+			cout << "******************" << endl;
+			if (drawdownFromHigh(chosen, DRAWDOWN_WINDOW, endIndex) == -1000){
+			    cout << "Drawdown From High: N/A" << endl;
+			}	
+			else {
+			    cout << "Drawdown From High (" << DRAWDOWN_WINDOW << " days): " << drawdownFromHigh(chosen, DRAWDOWN_WINDOW, endIndex) << "%" << endl;
+			}
+			cout << "******************" << endl;
+			break;
+		    case 9:
+			cout << "******************" << endl;
+			if (volatilityRatio(chosen, VOLATILITY_WINDOW, endIndex) == -1){
+			    cout << "Volatility Ratio: N/A" << endl;
+			}
+			else {
+			    cout << "Volatility Ratio (" << VOLATILITY_WINDOW << " days): " << volatilityRatio(chosen, VOLATILITY_WINDOW, endIndex) << endl;
+			}
+			cout << "******************" << endl;
+			break;
+		    case 0:
 			isInd = false;
 			break;
 		}

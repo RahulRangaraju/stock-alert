@@ -79,6 +79,9 @@ void indicatorMenu(){
     cout << "4. Trend Ratio " << endl;
     cout << "5. Volume Ratio " << endl;
     cout << "6. Gap Percent " << endl;
-    cout << "7. Return To Main Menu " << endl;
+    cout << "7. Close Location " << endl;
+    cout << "8. Drawdown From High " << endl;
+    cout << "9. Volatility Ratio " << endl;
+    cout << "0. Return To Main Menu " << endl;
     
 }

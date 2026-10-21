@@ -18,6 +18,7 @@ double volumeRatio(const stock&, int, int);
 double drawdownFromHigh(const stock&, int, int);
 double trendRatio(const stock&, int, int);
 double volatilityRatio(const stock&, int, int);
+double trueRange(const stock&, int);
 double gapPercent(const stock&, int);
 double closeLocation(const stock&, int);
 int longestDownStreak(const stock&, int);
