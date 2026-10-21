@@ -29,6 +29,7 @@ const int VOLUME_WINDOW = 250;
 const int TREND_WINDOW = 251;
 const int DRAWDOWN_WINDOW = 251;
 const int VOLATILITY_WINDOW = 251;
+const int RSI_WINDOW = 14;
 
 int main(){
     bool isRunning = true;
@@ -130,11 +131,17 @@ int main(){
 			}
 			cout << "******************" << endl;
 			cout << "Longest Downstreak Over " << totalInfo << " Days: " << longestDownStreak(chosen, endIndex) << endl;
+			cout << "Current Downstreak: " << currentDownStreak(chosen, endIndex) << endl;
 			cout << "******************" << endl;
 			break;
 		    case 3: 
 			cout << "******************" << endl;
-			cout << "Current Downstreak: " << currentDownStreak(chosen, endIndex) << endl;
+			if (relativeStrengthIndex(chosen, RSI_WINDOW, endIndex) == -1){
+			    cout << "RSI: N/A" << endl;
+			}
+			else {
+			    cout << "RSI (" << RSI_WINDOW << " days): " << relativeStrengthIndex(chosen, RSI_WINDOW, endIndex) << endl;
+			}
 			cout << "******************" << endl;
 			break;
 		    case 4:

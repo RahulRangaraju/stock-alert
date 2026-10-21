@@ -285,6 +285,33 @@ double trendRatio(const stock& stock, int days, int endIndex){
     return ratio;
 }
 
+double relativeStrengthIndex(const stock& stock, int days, int endIndex){
+    if (endIndex - days < 0 || days < 1 || endIndex > static_cast<int>(stock.stockInfo.size()) - 1){
+	return -1;
+    }
+    double totalGain = 0;
+    double totalLoss = 0;
+    double RS;
+    double RSI;
+    for (int i = 0; i < days; i++){
+	double change = stock.stockInfo.at(endIndex - i).closePrice - stock.stockInfo.at(endIndex - i - 1).closePrice;
+	if (change >= 0){
+	    totalGain += change;
+	}
+	else {
+	    totalLoss += (-1 * change);
+	}
+    }
+    double avgGain = totalGain / days;
+    double avgLoss = totalLoss / days;
+    if (avgLoss == 0){
+	return 100;
+    }
+    RS = avgGain / avgLoss;
+    RSI = 100 - ( 100 / (1 + RS));
+    return RSI;
+}
+
 bool theAlgorithm(const stock& stock, int days, int endIndex){
     double zscore = getZScore(stock, days, endIndex);
     if (zscore == -1000){
