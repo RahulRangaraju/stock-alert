@@ -8,8 +8,11 @@
 void displayMenu();
 void displayStocks(const vector<stock>&);
 int getChoice(int, int);
+int getSettingsChoice(int, int);
 void displayPriceHistory(const stock&, int, int);
 void priceHistoryMenu();
 void indicatorMenu();
+void settingsMenu();
+void indicatorSettingsMenu();
 
 #endif

@@ -24,6 +24,24 @@ int getChoice(int low, int high){
     return userChoice;
 }
 
+int getSettingsChoice(int low, int high){
+    bool validChoice = false;
+    int userChoice;
+    do {
+    cout << "Window Length: ";
+    cin >> userChoice;
+    if (cin.fail()){
+	cout << "Enter a valid choice: " << endl;
+	cin.clear();
+	cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    }
+    if (userChoice >= low && userChoice <= high){
+	validChoice = true;	
+    }
+    } while (!validChoice);
+    return userChoice;
+}
+
 void displayStocks(const vector<stock>& stocks){
 int i = 0;
     for (const stock& stock : stocks){
@@ -83,5 +101,21 @@ void indicatorMenu(){
     cout << "8. Drawdown From High " << endl;
     cout << "9. Volatility Ratio " << endl;
     cout << "0. Return To Main Menu " << endl;
-    
+}
+
+void indicatorSettingsMenu(){
+    cout << "1. Configure ZScore Window" << endl;
+    cout << "2. Configure RSI Window" << endl;
+    cout << "3. Configure Trend Ratio Window" << endl;
+    cout << "4. Configure Volume Ratio Window" << endl;
+    cout << "5. Drawdown From High " << endl;
+    cout << "6. Volatility Ratio " << endl;
+    cout << "0. Return To Main Menu " << endl;
+}
+
+void settingsMenu(){
+    cout << "1. Use Default Values" << endl;
+    cout << "2. Advanced - User Configured" << endl;
+    cout << "3. View Current Settings" << endl;
+    cout << "4. Save And Exit" << endl;
 }

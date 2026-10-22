@@ -10,5 +10,7 @@ struct AnalysisSettings {
     int rsiWindow = 14;
 };
 
+void viewSettings(const AnalysisSettings&);
+
 #endif
 

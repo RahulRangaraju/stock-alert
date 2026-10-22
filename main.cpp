@@ -25,6 +25,8 @@ const int MENU_CHOICES = 6;
 const int HISTORY_MENU_CHOICES = 4;
 const int INDICATOR_CHOICES = 9;
 const int HISTORY_DAYS = 251;
+const int SETTINGS_MENU = 4;
+const int SM_CHOICES = 6;
 
 int main(){
     AnalysisSettings settings;
@@ -207,10 +209,87 @@ int main(){
 	    stockIndex = getChoice(1, static_cast<int>(stocks.size()));
 	    cout << "******************" << endl;
 	    break;
-	case 3:
-	    // IMPLEMENT ANALYSIS SETTINGS;
-	    // CONFIGURE DATES AND WINDOWS TO ANALYZE
-	    
+	case 3: {
+	// IMPLEMENT ANALYSIS SETTINGS;
+	// CONFIGURE DATES AND WINDOWS TO ANALYZE
+	    bool isSet = true;
+	    do {
+	    isRunning = true;
+	    settingsMenu();
+	    int settingsChoice = getChoice(0, SETTINGS_MENU);
+		switch (settingsChoice){
+		case 1:
+		    settings = AnalysisSettings{};
+				cout << "***************************" << endl;
+				cout << "Using Default Window Values" << endl;
+				cout << "***************************" << endl;
+		    isSet = false;
+		    break;
+		case 2: {
+		    bool inMenu = true;
+		    do {
+		    indicatorSettingsMenu();
+		    int isChoice = getChoice(0, SM_CHOICES);
+			switch (isChoice){
+			    case 1:
+				cout << "**************************" << endl;
+				cout << "(Min: 2 | Max: 251)" << endl;
+				settings.zScoreWindow = getSettingsChoice(2, HISTORY_DAYS);
+				cout << "ZScore Window Length Saved" << endl;
+				cout << "**************************" << endl;
+				break;
+			    case 2:
+				cout << "***********************" << endl;
+				cout << "(Min: 1 | Max: 250)" << endl;
+				settings.rsiWindow = getSettingsChoice(1, HISTORY_DAYS - 1);
+				cout << "RSI Window Length Saved" << endl;
+				cout << "***********************" << endl;
+				break;
+			    case 3:
+				cout << "*******************************" << endl;
+				cout << "(Min: 1 | Max: 251)" << endl;
+				settings.trendWindow = getSettingsChoice(1, HISTORY_DAYS);
+				cout << "Trend Ratio Window Length Saved" << endl;
+				cout << "*******************************" << endl;
+				break;
+			    case 4:
+				cout << "********************************" << endl;
+				cout << "(Min: 1 | Max: 250)" << endl;
+				settings.volumeWindow = getSettingsChoice(1, HISTORY_DAYS - 1);
+				cout << "Volume Ratio Window Length Saved" << endl;
+				cout << "********************************" << endl;
+				break;
+			    case 5:
+				cout << "****************************" << endl;
+				cout << "(Min: 1 | Max: 251)" << endl;
+				settings.drawdownWindow = getSettingsChoice(1, HISTORY_DAYS);
+				cout << "Drawdown Window Length Saved" << endl;
+				cout << "****************************" << endl;
+				break;
+			    case 6:
+				cout << "************************************" << endl;
+				cout << "(Min: 1 | Max: 250)" << endl;
+				settings.volatilityWindow = getSettingsChoice(1, HISTORY_DAYS - 1);
+				cout << "Volatility Ratio Window Length Saved" << endl;
+				cout << "************************************" << endl;
+				break;
+			    case 0:
+				inMenu = false;
+				break;
+
+			}
+		    } while (inMenu);  
+		    break;
+		}
+		case 3:
+		    viewSettings(settings);
+		    break;
+		case 4:
+		    isSet = false;
+		    break;
+		}
+	    } while (isSet);
+	}
 	    break;
 	case 4: 
 	    isRunning = false;	    
