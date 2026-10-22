@@ -233,43 +233,43 @@ int main(){
 			switch (isChoice){
 			    case 1:
 				cout << "**************************" << endl;
-				cout << "(Min: 2 | Max: 251)" << endl;
-				settings.zScoreWindow = getSettingsChoice(2, HISTORY_DAYS);
+				cout << "(Min: 2 | Max: " << totalInfo << ")" << endl;
+				settings.zScoreWindow = getSettingsChoice(2, totalInfo);
 				cout << "ZScore Window Length Saved" << endl;
 				cout << "**************************" << endl;
 				break;
 			    case 2:
 				cout << "***********************" << endl;
-				cout << "(Min: 1 | Max: 250)" << endl;
-				settings.rsiWindow = getSettingsChoice(1, HISTORY_DAYS - 1);
+				cout << "(Min: 1 | Max: " << totalInfo - 1 << ")" << endl;
+				settings.rsiWindow = getSettingsChoice(1, totalInfo - 1);
 				cout << "RSI Window Length Saved" << endl;
 				cout << "***********************" << endl;
 				break;
 			    case 3:
 				cout << "*******************************" << endl;
-				cout << "(Min: 1 | Max: 251)" << endl;
-				settings.trendWindow = getSettingsChoice(1, HISTORY_DAYS);
+				cout << "(Min: 1 | Max: " << totalInfo << ")" << endl;
+				settings.trendWindow = getSettingsChoice(1, totalInfo);
 				cout << "Trend Ratio Window Length Saved" << endl;
 				cout << "*******************************" << endl;
 				break;
 			    case 4:
 				cout << "********************************" << endl;
-				cout << "(Min: 1 | Max: 250)" << endl;
-				settings.volumeWindow = getSettingsChoice(1, HISTORY_DAYS - 1);
+				cout << "(Min: 1 | Max: " << totalInfo - 1 << ")" << endl;
+				settings.volumeWindow = getSettingsChoice(1, totalInfo - 1);
 				cout << "Volume Ratio Window Length Saved" << endl;
 				cout << "********************************" << endl;
 				break;
 			    case 5:
 				cout << "****************************" << endl;
-				cout << "(Min: 1 | Max: 251)" << endl;
-				settings.drawdownWindow = getSettingsChoice(1, HISTORY_DAYS);
+				cout << "(Min: 1 | Max: " << totalInfo << ")" << endl;
+				settings.drawdownWindow = getSettingsChoice(1, totalInfo);
 				cout << "Drawdown Window Length Saved" << endl;
 				cout << "****************************" << endl;
 				break;
 			    case 6:
 				cout << "************************************" << endl;
-				cout << "(Min: 1 | Max: 250)" << endl;
-				settings.volatilityWindow = getSettingsChoice(1, HISTORY_DAYS - 1);
+				cout << "(Min: 1 | Max: " << totalInfo - 1 << ")" << endl;
+				settings.volatilityWindow = getSettingsChoice(1, totalInfo - 1);
 				cout << "Volatility Ratio Window Length Saved" << endl;
 				cout << "************************************" << endl;
 				break;

@@ -1,7 +1,9 @@
 # TODO
 
 ## Next up
-- [ ] Set real window defaults in main.cpp (placeholders are at max)
+- [x] Set real window defaults in main.cpp (placeholders are at max)
+- [ ] Show window length in ZScore, Trend Ratio, and Volume Ratio output (like RSI)
+- [ ] Add N/A sentinel checks for ZScore (-1000) and Trend Ratio (-1) in the menu
 - [ ] Indicators menu: Show All / Search by date / Search by date range
 - [ ] One `displayIndicators(chosen, endIndex)` used by all three
 - [ ] Show "As of <date>" on indicator output
