@@ -3,6 +3,7 @@
 #include "stock.h"
 #include "analysis.h"
 #include "menu.h"
+#include "settings.h"
 
 using namespace std;
 
@@ -24,14 +25,9 @@ const int MENU_CHOICES = 6;
 const int HISTORY_MENU_CHOICES = 4;
 const int INDICATOR_CHOICES = 9;
 const int HISTORY_DAYS = 251;
-const int ZSCORE_WINDOW = 251;
-const int VOLUME_WINDOW = 250;
-const int TREND_WINDOW = 251;
-const int DRAWDOWN_WINDOW = 251;
-const int VOLATILITY_WINDOW = 251;
-const int RSI_WINDOW = 14;
 
 int main(){
+    AnalysisSettings settings;
     bool isRunning = true;
     bool priceHistoryLoop = true;
     vector<string> names = {"NVDA", "AAPL", "MU", "MSFT", "IREN", "INTC"};
@@ -119,7 +115,7 @@ int main(){
 		switch (iChoice){
 		    case 1: 
 			cout << "******************" << endl;
-			cout << "ZScore: " << getZScore(chosen, ZSCORE_WINDOW, endIndex) << endl;
+			cout << "ZScore: " << getZScore(chosen, settings.zScoreWindow, endIndex) << endl;
 			cout << "******************" << endl;
 			break;
 		    case 2: 
@@ -130,31 +126,31 @@ int main(){
 			    break;
 			}
 			cout << "******************" << endl;
-			cout << "Longest Downstreak Over " << totalInfo << " Days: " << longestDownStreak(chosen, endIndex) << endl;
+			cout << "Longest Downstreak: " << longestDownStreak(chosen, endIndex) << endl;
 			cout << "Current Downstreak: " << currentDownStreak(chosen, endIndex) << endl;
 			cout << "******************" << endl;
 			break;
 		    case 3: 
 			cout << "******************" << endl;
-			if (relativeStrengthIndex(chosen, RSI_WINDOW, endIndex) == -1){
+			if (relativeStrengthIndex(chosen, settings.rsiWindow, endIndex) == -1){
 			    cout << "RSI: N/A" << endl;
 			}
 			else {
-			    cout << "RSI (" << RSI_WINDOW << " days): " << relativeStrengthIndex(chosen, RSI_WINDOW, endIndex) << endl;
+			    cout << "RSI (" << settings.rsiWindow << " days): " << relativeStrengthIndex(chosen, settings.rsiWindow, endIndex) << endl;
 			}
 			cout << "******************" << endl;
 			break;
 		    case 4:
 			cout << "******************" << endl;
-			cout << "Trend Ratio: " << trendRatio(chosen, TREND_WINDOW, endIndex) << endl;
+			cout << "Trend Ratio: " << trendRatio(chosen, settings.trendWindow, endIndex) << endl;
 			cout << "******************" << endl;
 			break;
 		    case 5: 
 			cout << "******************" << endl;
-			cout << "Average volume (last " << VOLUME_WINDOW << " days): " << fixed << setprecision(0) << avgVolume(chosen, VOLUME_WINDOW, endIndex) << endl;
+			cout << "Average volume (last " << settings.volumeWindow << " days): " << fixed << setprecision(0) << avgVolume(chosen, settings.volumeWindow, endIndex) << endl;
 			cout << "Today's Volume: " << chosen.stockInfo.at(endIndex).tradeVol << endl;
 			cout << defaultfloat << setprecision(6);
-			cout << "Volume Ratio: " << volumeRatio(chosen, VOLUME_WINDOW, endIndex) << endl;
+			cout << "Volume Ratio: " << volumeRatio(chosen, settings.volumeWindow, endIndex) << endl;
 			cout << "******************" << endl;
 			break;
 		    case 6: 
@@ -178,21 +174,21 @@ int main(){
 			break;
 		    case 8:
 			cout << "******************" << endl;
-			if (drawdownFromHigh(chosen, DRAWDOWN_WINDOW, endIndex) == -1000){
+			if (drawdownFromHigh(chosen, settings.drawdownWindow, endIndex) == -1000){
 			    cout << "Drawdown From High: N/A" << endl;
 			}	
 			else {
-			    cout << "Drawdown From High (" << DRAWDOWN_WINDOW << " days): " << drawdownFromHigh(chosen, DRAWDOWN_WINDOW, endIndex) << "%" << endl;
+			    cout << "Drawdown From High (" << settings.drawdownWindow << " days): " << drawdownFromHigh(chosen, settings.drawdownWindow, endIndex) << "%" << endl;
 			}
 			cout << "******************" << endl;
 			break;
 		    case 9:
 			cout << "******************" << endl;
-			if (volatilityRatio(chosen, VOLATILITY_WINDOW, endIndex) == -1){
+			if (volatilityRatio(chosen, settings.volatilityWindow, endIndex) == -1){
 			    cout << "Volatility Ratio: N/A" << endl;
 			}
 			else {
-			    cout << "Volatility Ratio (" << VOLATILITY_WINDOW << " days): " << volatilityRatio(chosen, VOLATILITY_WINDOW, endIndex) << endl;
+			    cout << "Volatility Ratio (" << settings.volatilityWindow << " days): " << volatilityRatio(chosen, settings.volatilityWindow, endIndex) << endl;
 			}
 			cout << "******************" << endl;
 			break;
@@ -214,6 +210,7 @@ int main(){
 	case 3:
 	    // IMPLEMENT ANALYSIS SETTINGS;
 	    // CONFIGURE DATES AND WINDOWS TO ANALYZE
+	    
 	    break;
 	case 4: 
 	    isRunning = false;	    
