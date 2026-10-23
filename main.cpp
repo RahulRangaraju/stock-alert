@@ -285,6 +285,9 @@ int main(){
 		    viewSettings(settings);
 		    break;
 		case 4:
+		    cout << "**************" << endl;
+		    cout << "Settings Saved" << endl;
+		    cout << "**************" << endl;
 		    isSet = false;
 		    break;
 		}
