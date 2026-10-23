@@ -6,6 +6,7 @@
 - [ ] Add N/A sentinel checks for ZScore (-1000) and Trend Ratio (-1) in the menu
 - [ ] Indicators menu: Show All / Search by date / Search by date range
 - [ ] One `displayIndicators(chosen, endIndex)` used by all three
+- [ ] Decide: `displayIndicators` prints all 9 indicators; date range as table or block per day; keep single-indicator menu as debug or remove
 - [ ] Show "As of <date>" on indicator output
 
 ## Indicators
@@ -25,6 +26,7 @@
 - [ ] Format numbers (2-3 decimals, reset `fixed` after)
 - [ ] Remove commented-out code, unused variables, redundant size() checks
 - [ ] Remove old Analysis Settings option once date search works
+- [ ] Add `.clang-format` (clang-tools in shell.nix) and format all files (separate commit)
 
 ## Later (ideas)
 - Class refactor (Indicator base class; adding an indicator touches 4 files)
